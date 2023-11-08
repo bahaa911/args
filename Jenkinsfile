@@ -51,10 +51,7 @@ pipeline {
 
     post {
         always {
-            bat 'docker stop testdocker'
-            bat 'docker rm testdocker'
-        }
-        success {
+            bat 'Docker system prune --all -f'
             deleteDir()
         }
     }
