@@ -35,15 +35,4 @@ pipeline {
                                 steps {
                                     script {
                                         def selectedScript = params.JMETER_SCRIPT
-                                        bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
-                                    }
-                                }
-                            }
-                        },
-                        print: {
-                            stage('Print Numbers') {
-                                steps {
-                                    script {
-                                        for (int i = 1; i <= 20; i++) {
-                                            echo "Number: $i"
-                                            sleep(
+                                        bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD
