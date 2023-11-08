@@ -10,16 +10,20 @@ pipeline {
     }
 
     stages {
-        stage('Clone repo') {
-            steps {
-                git branch: 'main', credentialsId: 'CI_bitbucket_with_password', url: 'https://github.com/bahaa911/args.git'
-            }
-        }
+        stage('Build and Clone') {
+            parallel {
+                stage('Clone repo') {
+                    steps {
+                        git branch: 'main', credentialsId: 'CI_bitbucket_with_password', url: 'https://github.com/bahaa911/args.git'
+                    }
+                }
 
-        stage('Build test Docker') {
-            steps {
-                script {
-                    bat 'docker build -t testdocker ./'
+                stage('Build test Docker') {
+                    steps {
+                        script {
+                            bat 'docker build -t testdocker ./'
+                        }
+                    }
                 }
             }
         }
@@ -38,7 +42,7 @@ pipeline {
                 script {
                     for (int i = 1; i <= 20; i++) {
                         echo "Number: $i"
-                        sleep(1) 
+                        sleep(1) // Sleep for 1 second between each print
                     }
                 }
             }
