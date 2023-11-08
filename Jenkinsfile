@@ -32,6 +32,16 @@ pipeline {
                 }
             }
         }
-    }
 
+        stage('Print Numbers in Parallel') {
+            parallel {
+                script {
+                    for (int i = 1; i <= 20; i++) {
+                        echo "Number: $i"
+                        sleep(1) 
+                    }
+                }
+            }
+        }
+    }
 }
