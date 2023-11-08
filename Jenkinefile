@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Execute Script 1') {
+            steps {
+                build job: 'Pipeline - test', parameters: [string(name: 'SELECTED_SCRIPT', value: 'opensource-orangehrmlive.jmx')]
+            }
+        }
+
+        stage('Execute Script 2') {
+            steps {
+                build job: 'Pipeline - test', parameters: [string(name: 'SELECTED_SCRIPT', value: 'opensource-orangehrmlive1.jmx')]
+            }
+        }
+    }
+}
