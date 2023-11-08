@@ -23,6 +23,16 @@ pipeline {
                 }
             }
         }
+stage('Print Numbers in Parallel') {
+            parallel {
+               stage ('parallel') script {
+                   {
+                    for (int i = 1; i <= 20; i++) {
+                        echo "Number: $i"
+                        sleep(1) 
+                    }
+                   }
+                }
 
         stage('Run Jmeter Docker') {
             steps {
@@ -31,18 +41,6 @@ pipeline {
                     bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
                 }
             }
-        }
-
-        stage('Print Numbers in Parallel') {
-            parallel {
-                // Add a loop to print numbers from 1 to 20 in parallel
-                script {
-                    for (int i = 1; i <= 20; i++) {
-                        echo "Number: $i"
-                        sleep(1) // Sleep for 1 second between each print
-                    }
-                }
-            }
-        }
+        }   
     }
 }
