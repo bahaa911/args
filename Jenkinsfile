@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -14,10 +13,7 @@ pipeline {
         stage('Set Build Display Name') {
             steps {
                 script {
-                    // Get the selected JMeter script name from the parameter
                     def selectedScript = params.SELECTED_SCRIPT
-                    
-                    // Set the current build's display name to the selected script
                     currentBuild.displayName = selectedScript
                 }
             }
