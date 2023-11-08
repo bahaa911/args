@@ -48,4 +48,14 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            bat 'docker stop testdocker'
+            bat 'docker rm testdocker'
+        }
+        success {
+            deleteDir()
+        }
+    }
 }
