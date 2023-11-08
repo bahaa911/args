@@ -1,15 +1,28 @@
+
 pipeline {
     agent any
 
     parameters {
-        choice(
-            name: 'JMETER_SCRIPT',
-            choices: 'opensource-orangehrmlive.jmx\nopensource-orangehrmlive1.jmx',
-            description: 'Select the JMeter script:'
+        string(
+            name: 'SELECTED_SCRIPT',
+            description: 'Selected JMeter Script (e.g., opensource-orangehrmlive.jmx or opensource-orangehrmlive1.jmx)',
+            defaultValue: 'opensource-orangehrmlive.jmx'
         )
     }
 
     stages {
+        stage('Set Build Display Name') {
+            steps {
+                script {
+                    // Get the selected JMeter script name from the parameter
+                    def selectedScript = params.SELECTED_SCRIPT
+                    
+                    // Set the current build's display name to the selected script
+                    currentBuild.displayName = selectedScript
+                }
+            }
+        }
+
         stage('Parallel Stages') {
             parallel {
                 stage('Clone repo') {
@@ -42,7 +55,8 @@ pipeline {
         stage('Run Jmeter Docker') {
             steps {
                 script {
-                    def selectedScript = params.JMETER_SCRIPT
+                    // Use the current build's display name as the selected script
+                    def selectedScript = currentBuild.displayName
                     bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
                 }
             }
