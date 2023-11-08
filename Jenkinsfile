@@ -30,8 +30,7 @@ pipeline {
                     def selectedScript = params.JMETER_SCRIPT
                     bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
 
-                    // Pass the selected script to the entrypoint script
-                    bat "docker cp ${selectedScript} testdocker:/data/"
+                   
                 }
             }
         }
