@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     def selectedScript = params.JMETER_SCRIPT
-                    bat "docker run -t -v C:\Users\Abdallah.Khayrat\Desktop\Us:/data testdocker ${selectedScript}"
+                    bat "docker run -t -v C:\\Users\\Abdallah.Khayrat\\Desktop\\Us:/data testdocker ${selectedScript}"
 
                    
                 }
