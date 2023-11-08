@@ -25,12 +25,7 @@ pipeline {
         }
 
         stage('Run Jmeter Docker') {
-            parallel {
-                script {
-                    def selectedScript = params.JMETER_SCRIPT
-                    bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
-                }
-
+            steps {
                 script {
                     def selectedScript = params.JMETER_SCRIPT
                     bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
