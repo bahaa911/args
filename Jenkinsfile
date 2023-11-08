@@ -10,37 +10,40 @@ pipeline {
     }
 
     stages {
-        stage('Clone repo') {
-            steps {
-                git branch: 'main', credentialsId: 'CI_bitbucket_with_password', url: 'https://github.com/bahaa911/args.git'
-            }
-        }
-
-        stage('Build test Docker') {
+        stage('Print Numbers in Parallel') {
             steps {
                 script {
-                    bat 'docker build -t testdocker ./'
-                }
-            }
-        }
-stage('Print Numbers in Parallel') {
-            parallel {
-               stage ('parallel') script {
-                   {
-                    for (int i = 1; i <= 20; i++) {
-                        echo "Number: $i"
-                        sleep(1) 
-                    }
-                   }
-                }
-
-        stage('Run Jmeter Docker') {
-            steps {
-                script {
-                    def selectedScript = params.JMETER_SCRIPT
-                    bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
-                }
-            }
-        }   
-    }
-}
+                    parallel (
+                        clone: {
+                            stage('Clone repo') {
+                                steps {
+                                    git branch: 'main', credentialsId: 'CI_bitbucket_with_password', url: 'https://github.com/bahaa911/args.git'
+                                }
+                            }
+                        },
+                        build: {
+                            stage('Build test Docker') {
+                                steps {
+                                    script {
+                                        bat 'docker build -t testdocker ./'
+                                    }
+                                }
+                            }
+                        },
+                        run: {
+                            stage('Run Jmeter Docker') {
+                                steps {
+                                    script {
+                                        def selectedScript = params.JMETER_SCRIPT
+                                        bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD:/data testdocker ${selectedScript}"
+                                    }
+                                }
+                            }
+                        },
+                        print: {
+                            stage('Print Numbers') {
+                                steps {
+                                    script {
+                                        for (int i = 1; i <= 20; i++) {
+                                            echo "Number: $i"
+                                            sleep(
