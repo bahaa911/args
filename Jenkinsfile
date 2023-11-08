@@ -5,7 +5,7 @@
 		stages {
 			stage('Clone repo') {
 				steps {
-                git branch: 'main', credentialsId: 'CI_bitbucket_with_password', url: 'https://github.com/AhmedShanwany/Docker_Jmeter.git'
+                git branch: 'main', credentialsId: 'CI_bitbucket_with_password', url: 'https://github.com/bahaa911/args.git'
             }
         }
         stage ('Build test Docker') {
