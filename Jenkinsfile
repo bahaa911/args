@@ -35,4 +35,4 @@ pipeline {
                                 steps {
                                     script {
                                         def selectedScript = params.JMETER_SCRIPT
-                                        bat "docker run -t -v D:\\QIQ\\courses\\Run_From_CMD
+                                        bat "docker run -t D:\\QIQ\\courses\\Run_From_CMD
